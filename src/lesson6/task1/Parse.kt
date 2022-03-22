@@ -122,6 +122,8 @@ fun bestLongJump(jumps: String): Int {
     val jumpList = parts.toMutableList()
     jumpList.forEach {
         if (it.toIntOrNull() != null) {
+//          if (it.toIntOrNull()!! < 0)
+//              return -1
             onlySuccessAttempts.add(it.toIntOrNull()!!)
         } else if (!allowedDigits.contains(it)) return -1
     }
