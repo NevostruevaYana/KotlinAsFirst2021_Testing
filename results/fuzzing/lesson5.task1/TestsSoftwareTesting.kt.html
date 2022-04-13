@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestsSoftwareTesting.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">KotlinAsFirst2021_Testing$FuzzingTests_testContainsIn.exec</a> &gt; <a href="index.source.html" class="el_package">lesson5.task1</a> &gt; <span class="el_source">TestsSoftwareTesting.kt</span></div><h1>TestsSoftwareTesting.kt</h1><pre class="source lang-java linenums">package lesson5.task1
+
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
+
+<span class="nc" id="L6">class TestsSoftwareTesting {</span>
+
+    /**
+     * Простая (2 балла)
+     *
+     * Определить, входит ли ассоциативный массив a в ассоциативный массив b;
+     * это выполняется, если все ключи из a содержатся в b с такими же значениями.
+     *
+     * Например:
+     *   containsIn(mapOf(&quot;a&quot; to &quot;z&quot;), mapOf(&quot;a&quot; to &quot;z&quot;, &quot;b&quot; to &quot;sweet&quot;)) -&gt; true
+     *   containsIn(mapOf(&quot;a&quot; to &quot;z&quot;), mapOf(&quot;a&quot; to &quot;zee&quot;, &quot;b&quot; to &quot;sweet&quot;)) -&gt; false
+     */
+    @Test
+    fun testContainsIn() {
+<span class="nc" id="L20">        assertTrue(</span>
+<span class="nc" id="L21">            containsIn(</span>
+<span class="nc" id="L22">                mapOf(&quot;a&quot; to &quot;z&quot;),</span>
+<span class="nc" id="L23">                mapOf(&quot;a&quot; to &quot;z&quot;, &quot;b&quot; to &quot;sweet&quot;)</span>
+            )
+        )
+<span class="nc" id="L26">        assertTrue(</span>
+<span class="nc" id="L27">            containsIn(</span>
+<span class="nc" id="L28">                emptyMap(),</span>
+<span class="nc" id="L29">                emptyMap()</span>
+            )
+        )
+<span class="nc" id="L32">        assertTrue(</span>
+<span class="nc" id="L33">            containsIn(</span>
+<span class="nc" id="L34">                emptyMap(),</span>
+<span class="nc" id="L35">                mapOf(&quot;a&quot; to &quot;z&quot;, &quot;b&quot; to &quot;sweet&quot;)</span>
+            )
+        )
+<span class="nc" id="L38">        assertTrue(</span>
+<span class="nc" id="L39">            containsIn(</span>
+<span class="nc" id="L40">                mapOf(&quot;b&quot; to &quot;c&quot;, &quot;c&quot; to &quot;b&quot;, &quot;a&quot; to &quot;z&quot;),</span>
+<span class="nc" id="L41">                mapOf(&quot;a&quot; to &quot;z&quot;, &quot;b&quot; to &quot;c&quot;, &quot;c&quot; to &quot;b&quot;)</span>
+            )
+        )
+<span class="nc" id="L44">        assertFalse(</span>
+<span class="nc" id="L45">            containsIn(</span>
+<span class="nc" id="L46">                mapOf(&quot;b&quot; to &quot;c&quot;),</span>
+<span class="nc" id="L47">                mapOf(&quot;c&quot; to &quot;b&quot;)</span>
+            )
+        )
+<span class="nc" id="L50">        assertFalse(</span>
+<span class="nc" id="L51">            containsIn(</span>
+<span class="nc" id="L52">                mapOf(&quot;b&quot; to &quot;c&quot;),</span>
+<span class="nc" id="L53">                emptyMap()</span>
+            )
+        )
+<span class="nc" id="L56">    }</span>
+
+    /**
+     * Средняя (4 балла)
+     *
+     * Найти в заданном списке повторяющиеся элементы и вернуть
+     * ассоциативный массив с информацией о числе повторений
+     * для каждого повторяющегося элемента.
+     * Если элемент встречается только один раз, включать его в результат
+     * не следует.
+     *
+     * Например:
+     *   extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;)) -&gt; mapOf(&quot;a&quot; to 2)
+     */
+    @Test
+    fun testExtractRepeats() {
+<span class="nc" id="L72">        assertEquals(</span>
+<span class="nc" id="L73">            emptyMap&lt;String, Int&gt;(),</span>
+<span class="nc" id="L74">            extractRepeats(emptyList())</span>
+        )
+<span class="nc" id="L76">        assertEquals(</span>
+<span class="nc" id="L77">            mapOf(&quot;a&quot; to 2),</span>
+<span class="nc" id="L78">            extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;))</span>
+        )
+<span class="nc" id="L80">        assertEquals(</span>
+<span class="nc" id="L81">            emptyMap&lt;String, Int&gt;(),</span>
+<span class="nc" id="L82">            extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;))</span>
+        )
+<span class="nc" id="L84">        assertEquals(</span>
+<span class="nc" id="L85">            mapOf(&quot;a&quot; to 2, &quot;b&quot; to 2),</span>
+<span class="nc" id="L86">            extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;b&quot;, &quot;a&quot;))</span>
+        )
+<span class="nc" id="L88">        assertEquals(</span>
+<span class="nc" id="L89">            mapOf(&quot;b&quot; to 2, &quot;a&quot; to 2),</span>
+<span class="nc" id="L90">            extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;b&quot;, &quot;a&quot;))</span>
+        )
+<span class="nc" id="L92">        assertNotEquals(</span>
+<span class="nc" id="L93">            mapOf(&quot;a&quot; to 1),</span>
+<span class="nc" id="L94">            extractRepeats(listOf(&quot;a&quot;))</span>
+        )
+<span class="nc" id="L96">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

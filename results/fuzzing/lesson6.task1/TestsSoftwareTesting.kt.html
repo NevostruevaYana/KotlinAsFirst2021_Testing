@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestsSoftwareTesting.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">KotlinAsFirst2021_Testing$FuzzingTests_testBestLongJump.exec</a> &gt; <a href="index.source.html" class="el_package">lesson6.task1</a> &gt; <span class="el_source">TestsSoftwareTesting.kt</span></div><h1>TestsSoftwareTesting.kt</h1><pre class="source lang-java linenums">package lesson6.task1
+
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
+
+<span class="nc" id="L6">class TestsSoftwareTesting {</span>
+
+    /**
+     * Средняя (5 баллов)
+     *
+     * Результаты спортсмена на соревнованиях в прыжках в длину представлены строкой вида
+     * &quot;706 - % 717 % 703&quot;.
+     * В строке могут присутствовать числа, черточки - и знаки процента %, разделённые пробелами;
+     * число соответствует удачному прыжку, - пропущенной попытке, % заступу.
+     * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
+     * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
+     */
+    @Test
+    fun testBestLongJump() {
+<span class="nc" id="L20">        assertEquals(-1, bestLongJump(&quot;&quot;))</span>
+<span class="nc" id="L21">        assertEquals(717, bestLongJump(&quot;706 - % 717 % 703&quot;))</span>
+<span class="nc" id="L22">        assertEquals(999, bestLongJump(&quot;706 - % 717 % 999&quot;))</span>
+
+<span class="nc" id="L24">        assertEquals(-1, bestLongJump(&quot;706 - %% 717 % 703&quot;))</span>
+<span class="nc" id="L25">        assertEquals(-1, bestLongJump(&quot;706 -- % 717 % 703&quot;))</span>
+<span class="nc" id="L26">        assertEquals(-1, bestLongJump(&quot;- - % - %&quot;))</span>
+<span class="nc" id="L27">        assertEquals(Int.MAX_VALUE, bestLongJump(&quot;- - % - &quot; + Int.MAX_VALUE + &quot; %&quot;))</span>
+
+        // реализация в отношении пробелов вроде бы совпадает с описанным заданием:
+        // ...
+        // В строке могут присутствовать числа, черточки - и знаки процента %, разделённые пробелами;
+        // ...
+        // Числа, знаки и пробелы могут быть разделены пробелАМИ (&gt; 1)
+        // Про пробелы в начле и конце строки ничего не сказано -
+        // в реализации они делают ошибочной всю строку
+<span class="nc" id="L36">        assertEquals(-1, bestLongJump(&quot;706 о - % 717 % 703&quot;))</span>
+<span class="nc" id="L37">        assertEquals(717, bestLongJump(&quot;706   - % 717 %       703&quot;))</span>
+<span class="nc" id="L38">        assertEquals(-1, bestLongJump(&quot;     706  - % 717 % 703&quot;))</span>
+<span class="nc" id="L39">        assertEquals(-1, bestLongJump(&quot;706  - % 717 % 703       &quot;))</span>
+
+<span class="nc" id="L41">        assertEquals(-1, bestLongJump(&quot;abc&quot;))</span>
+<span class="nc" id="L42">        assertEquals(-1, bestLongJump(&quot;- - - % 2147483649&quot;)) //Int.MAX_VALUE + 1</span>
+
+        // ERROR
+        // не учтено наличие отрицательных чисел (результат спортсмена должен быть &gt;0)
+        //assertEquals(-1, bestLongJump(&quot;- - 45 - % -34&quot;))
+        //assertEquals(-1, bestLongJump(&quot;- - - % &quot; + Int.MIN_VALUE))
+<span class="nc" id="L48">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
